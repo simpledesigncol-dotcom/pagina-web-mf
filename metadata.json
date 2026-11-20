@@ -1,0 +1,6 @@
+{
+  "name": "MALA FAMA",
+  "description": "Laboratorio creativo colombiano. Estrategias que venden y dan que hablar.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

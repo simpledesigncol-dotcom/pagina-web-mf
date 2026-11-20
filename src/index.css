@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+/* ==========================================================================
+   MALA FAMA — VARIABLES DE IDENTIDAD VISUAL
+   Cambia estos tokens para ajustar la paleta o tipografía en toda la web.
+   ========================================================================== */
+:root {
+  --mf-red: #FF1A17;
+  --mf-black: #0B0B0B;
+  --mf-cream: #FFF0D4;
+
+  /* Estados "Lo típico" (contraste deliberadamente gris y corporativo) */
+  --typical-bg: #E5E5E5;
+  --typical-surface: #FFFFFF;
+  --typical-text: #525252;
+  --typical-muted: #737373;
+  --typical-border: #D4D4D4;
+
+  /* Tipografías */
+  --font-display: "Anton", Impact, sans-serif;
+  --font-body: "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-marker: "Permanent Marker", cursive;
+}
+
+@layer base {
+  html {
+    background-color: var(--mf-red);
+    color: var(--mf-cream);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    scroll-behavior: auto;
+  }
+
+  body {
+    margin: 0;
+    overflow-x: hidden;
+    background-color: var(--mf-red);
+    color: var(--mf-cream);
+  }
+
+  ::selection {
+    background-color: var(--mf-black);
+    color: var(--mf-cream);
+  }
+
+  *:focus-visible {
+    outline: 3px solid var(--mf-cream);
+    outline-offset: 3px;
+  }
+}
+
+/* Clases utilitarias de tipografía y marca */
+.font-display {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.015em;
+}
+
+.font-marker {
+  font-family: var(--font-marker);
+  color: var(--mf-cream);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Ocultar cursor nativo solo cuando el cursor personalizado está activo en dispositivos con puntero fino */
+@media (pointer: fine) {
+  body.mf-custom-cursor,
+  body.mf-custom-cursor a,
+  body.mf-custom-cursor button,
+  body.mf-custom-cursor [data-interactive="true"] {
+    cursor: none !important;
+  }
+}
+
+/* Microinteracción: trazo de grafiti crema al pasar el cursor sobre botones */
+.mf-btn-graffiti {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mf-btn-graffiti .mf-underline-svg {
+  position: absolute;
+  left: -4%;
+  bottom: -8px;
+  width: 108%;
+  height: 12px;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.mf-btn-graffiti .mf-underline-path {
+  stroke-dasharray: 260;
+  stroke-dashoffset: 260;
+  transition: stroke-dashoffset 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mf-btn-graffiti:hover .mf-underline-path,
+.mf-btn-graffiti:focus-visible .mf-underline-path {
+  stroke-dashoffset: 0;
+}
+
+/* Corte oblicuo para entrada de títulos de sección (inspirado en las puntas de las Λ) */
+.mf-oblique-reveal {
+  clip-path: polygon(0 0, 100% 0, 96% 100%, 0% 100%);
+  transform-origin: left bottom;
+}
+
+/* Ocultar barra de scroll horizontal manteniendo desplazamiento táctil */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Animación de escritura a mano para "Que hablen." */
+@keyframes mf-handwrite-reveal {
+  from {
+    clip-path: inset(0 100% 0 0);
+    opacity: 0.4;
+  }
+  to {
+    clip-path: inset(0 0% 0 0);
+    opacity: 1;
+  }
+}
+
+.mf-handwrite-active {
+  animation: mf-handwrite-reveal 750ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Respeto estricto a prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .mf-handwrite-active {
+    clip-path: inset(0 0% 0 0) !important;
+    opacity: 1 !important;
+  }
+}
